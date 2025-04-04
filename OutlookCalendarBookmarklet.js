@@ -5,7 +5,7 @@ More info about what brought this about is here: https://chetcromer.com/create-a
 
 The journey with AI to get here is here: https://chetcromer.com/how-to-work-with-ai-to-achieve-your-goals/
 
-Current Version I'm Using: 0.6
+Current Version I'm Using: 0.8
 
 ChangeLog:
 0.1  This is the first file I decided to write down. I'll try to keep this up to date as I update my bookmarklet. All you need to do is minify this and then add it to your browser.
@@ -15,6 +15,7 @@ ChangeLog:
 0.5  Undid 0.4, as Outlook doesn't show the link as clickable until you open it, so that's not as important as the focus text.
 0.6  Something... I forget
 0.7  Added the Outlook Category "ToDo" to the new appointment (helps me with color coding in my calendar)
+0.8  Added selected text when copying from Outlook
 */
 
 (function () {
@@ -53,7 +54,7 @@ ChangeLog:
     );
   }
 
-  let rawTitle = caseSubjectEl?.textContent?.trim() || document.title;
+  const rawTitle = caseSubjectEl?.textContent?.trim() || document.title;
   const caseNum = caseNumEl?.textContent?.trim();
   const selected = window.getSelection()?.toString()?.trim();
 
@@ -67,18 +68,24 @@ ChangeLog:
   const subject = fullTitle;
   const pageTitle = fullTitle;
 
+  const focusHTML = selected
+    ? `<div style="background:#f2f2f2;padding:10px;border-left:4px solid #ccc;margin:10px 0;">${selected}</div><p>&nbsp;</p>`
+    : "";
+
   let pageBodyHTML = "";
 
   if (isOutlookMail) {
     pageBodyHTML = `
       <h1>${pageTitle}</h1>
       <p>&nbsp;</p>
+      ${focusHTML}
       <p>This task was created from an email in Outlook Web Access.</p>
       <p>&nbsp;</p>
       <p><a href="${pageUrl}">Open email</a></p>
     `;
   } else {
-    const metaSummary = document.querySelector('meta[name="description"]')?.content?.trim() || "";
+    const metaSummary =
+      document.querySelector('meta[name="description"]')?.content?.trim() || "";
 
     const paragraphs = Array.from(document.querySelectorAll("p"))
       .slice(0, 5)
@@ -97,12 +104,6 @@ ChangeLog:
     const summaryHTML = metaSummary ? `<p>${metaSummary}</p><p>&nbsp;</p>` : "";
     const paragraphHTML =
       "<hr><p>&nbsp;</p>" + paragraphs.map((p) => `<p>${p}</p><p>&nbsp;</p>`).join("");
-
-    const focusHTML = selected
-      ? `<div style="background:#f2f2f2;padding:10px;border-left:4px solid #ccc;margin:10px 0;">
-           ${selected}
-         </div><p>&nbsp;</p>`
-      : "";
 
     pageBodyHTML = `
       <h1>${pageTitle}</h1>
@@ -127,11 +128,10 @@ ChangeLog:
   const top = (window.outerHeight - popupHeight) / 2 + window.screenY;
 
   window.open(
-  `https://outlook.office.com/calendar/deeplink/compose?subject=${encodeURIComponent(
-    subject
-  )}&body=${bodyEncoded}&startdt=${startStr}&enddt=${endStr}&category=ToDo`,
-  "_blank",
-  `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
-);
-
+    `https://outlook.office.com/calendar/deeplink/compose?subject=${encodeURIComponent(
+      subject
+    )}&body=${bodyEncoded}&startdt=${startStr}&enddt=${endStr}`,
+    "_blank",
+    `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
+  );
 })();
