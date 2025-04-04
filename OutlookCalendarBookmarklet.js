@@ -1,5 +1,11 @@
 /*
-Version: 0.2
+This bookmarklet takes the page you're browsing on and starts an Outlook Web Access calendar item with it's content and gets it onto your calendar.
+
+More info about what brought this about is here: https://chetcromer.com/create-an-outlook-web-task-from-any-webpage-with-one-click-bookmarklet-tutorial/
+
+The journey with AI to get here is here: https://chetcromer.com/how-to-work-with-ai-to-achieve-your-goals/
+
+Current Version I'm Using: 0.2
 
 ChangeLog:
 0.1  This is the first file I decided to write down. I'll try to keep this up to date as I update my bookmarklet. All you need to do is minify this and then add it to your browser.
