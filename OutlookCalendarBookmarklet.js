@@ -127,10 +127,11 @@ ChangeLog:
   const top = (window.outerHeight - popupHeight) / 2 + window.screenY;
 
   window.open(
-    `https://outlook.office.com/calendar/deeplink/compose?subject=${encodeURIComponent(
-      subject
-    )}&body=${bodyEncoded}&startdt=${startStr}&enddt=${endStr}`,
-    "_blank",
-    `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
-  );
+  `https://outlook.office.com/calendar/deeplink/compose?subject=${encodeURIComponent(
+    subject
+  )}&body=${bodyEncoded}&startdt=${startStr}&enddt=${endStr}&category=ToDo`,
+  "_blank",
+  `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
+);
+
 })();
