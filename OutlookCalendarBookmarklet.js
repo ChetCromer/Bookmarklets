@@ -5,7 +5,7 @@ More info about what brought this about is here: https://chetcromer.com/create-a
 
 The journey with AI to get here is here: https://chetcromer.com/how-to-work-with-ai-to-achieve-your-goals/
 
-Current Version I'm Using: 0.5
+Current Version I'm Using: 0.6
 
 ChangeLog:
 0.1  This is the first file I decided to write down. I'll try to keep this up to date as I update my bookmarklet. All you need to do is minify this and then add it to your browser.
@@ -13,6 +13,8 @@ ChangeLog:
 0.3  Added a prefix for EMAIL, WEB, and TICKET for various tools I use a lot (Outlook, Zoho Desk, and general Websites). Also included the ticket subject and number from Zoho Desk.
 0.4  Moved link higher in the content so it's visible in preview in Outlook
 0.5  Undid 0.4, as Outlook doesn't show the link as clickable until you open it, so that's not as important as the focus text.
+0.6  Something... I forget
+0.7  Added the Outlook Category "ToDo" to the new appointment (helps me with color coding in my calendar)
 */
 
 (function () {
@@ -98,7 +100,7 @@ ChangeLog:
 
     const focusHTML = selected
       ? `<div style="background:#f2f2f2;padding:10px;border-left:4px solid #ccc;margin:10px 0;">
-           <strong>Focus:</strong> ${selected}
+           ${selected}
          </div><p>&nbsp;</p>`
       : "";
 
