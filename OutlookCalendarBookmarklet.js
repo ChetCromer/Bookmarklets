@@ -5,13 +5,14 @@ More info about what brought this about is here: https://chetcromer.com/create-a
 
 The journey with AI to get here is here: https://chetcromer.com/how-to-work-with-ai-to-achieve-your-goals/
 
-Current Version I'm Using: 0.4
+Current Version I'm Using: 0.5
 
 ChangeLog:
 0.1  This is the first file I decided to write down. I'll try to keep this up to date as I update my bookmarklet. All you need to do is minify this and then add it to your browser.
 0.2  Added a "focus" section to the message that includes whatever I currently have highlighted on the page. This allows me to get content straight into my appointment that I care about even if it's not in the first few paragraphs or page title.
 0.3  Added a prefix for EMAIL, WEB, and TICKET for various tools I use a lot (Outlook, Zoho Desk, and general Websites). Also included the ticket subject and number from Zoho Desk.
 0.4  Moved link higher in the content so it's visible in preview in Outlook
+0.5  Undid 0.4, as Outlook doesn't show the link as clickable until you open it, so that's not as important as the focus text.
 */
 
 (function () {
@@ -69,9 +70,10 @@ ChangeLog:
   if (isOutlookMail) {
     pageBodyHTML = `
       <h1>${pageTitle}</h1>
-      <p><a href="${pageUrl}">Open email</a></p>
       <p>&nbsp;</p>
       <p>This task was created from an email in Outlook Web Access.</p>
+      <p>&nbsp;</p>
+      <p><a href="${pageUrl}">Open email</a></p>
     `;
   } else {
     const metaSummary = document.querySelector('meta[name="description"]')?.content?.trim() || "";
@@ -102,9 +104,10 @@ ChangeLog:
 
     pageBodyHTML = `
       <h1>${pageTitle}</h1>
-      <p><a href="${pageUrl}">${pageUrl}</a></p>
       <p>&nbsp;</p>
       ${focusHTML}
+      <p><a href="${pageUrl}">${pageUrl}</a></p>
+      <p>&nbsp;</p>
       ${summaryHTML}
       ${paragraphHTML}
       ${imageHTML}
